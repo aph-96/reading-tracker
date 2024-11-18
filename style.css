@@ -1,0 +1,129 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background: #65d2fc;
+}
+
+h1,
+h2 {
+  font-family: "Edu VIC WA NT Beginner", serif;
+  text-align: center;
+}
+
+button,
+input {
+  background: #6200ea;
+  border-radius: 10px;
+  color: white;
+  padding: 10px;
+}
+
+.container-header {
+  max-width: 600px;
+  background: linear-gradient(
+    110.6deg,
+    rgb(184, 142, 252) 2.2%,
+    rgb(104, 119, 244) 100.2%
+  );
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 1px rgb(0 0 0 / 20%);
+  margin: 20px auto;
+}
+
+.but-add,
+input {
+  display: inline-block; /* Elements sit inline with each other */
+  margin: 0 auto; /* Centers elements relative to the container */
+  vertical-align: middle; /* Aligns items vertically */
+  border-color: #6200ea;
+}
+.but-add:hover {
+  background-color: #3700b3; /* Darker shade on hover */
+}
+input::placeholder {
+  color: white;
+}
+.container-form {
+  max-width: 600px;
+  background: linear-gradient(
+    110.6deg,
+    rgb(184, 142, 252) 2.2%,
+    rgb(104, 119, 244) 100.2%
+  );
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px auto;
+  text-align: center; /* Centers inline-block elements horizontally */
+}
+
+.okForm {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#bookList {
+  list-style: none;
+  padding: 0;
+}
+
+#bookList li {
+  padding: 10px;
+  border-bottom: 1px solid #6200ea;
+  display: flex;
+  justify-content: space-between; /* Space between book title and buttons */
+  align-items: center; /* Vertically center content */
+  font-family: "Montserrat", serif;
+}
+
+.book-info {
+  flex-grow: 1; /* Book title takes up available space */
+  margin-right: 10px; /* Adds space between title and buttons */
+}
+
+.book-actions {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+  justify-content: flex-end; /* Ensure buttons are aligned to the right */
+  align-items: center; /* Vertically center the buttons */
+}
+
+.mark-read,
+.delete-book {
+  padding: 5px;
+  background-color: #6200ea;
+  border-radius: 5px;
+  color: white;
+  border: none;
+}
+
+.mark-read:hover,
+.delete-book:hover {
+  background-color: #3700b3; /* Darker shade on hover */
+}
+
+.book-count {
+  font-weight: bold;
+  color: #6200ea;
+}
+
+/* Mobile-responsive styles */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  #bookForm {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #bookForm input,
+  #bookForm button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
