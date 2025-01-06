@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reading Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arsenal+SC:ital,wght@0,400;0,700;1,400;1,700&family=Edu+VIC+WA+NT+Beginner:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container-header">
+      <h1>My Reading Tracker</h1>
+      <h2 class="total" id="totalBooks">Total Reads: 0 | New Books: 0</h2>
+    </div>
+    <div class="container-form">
+      <form id="bookForm">
+        <input
+          type="text"
+          id="bookInput"
+          placeholder="Enter book title"
+          required
+        />
+        <button class="but-add" type="submit">Add Book</button>
+      </form>
+      <ul id="bookList">
+        <li>
+          <div class="book-info">
+            Book Title <span class="book-count">1</span> time(s)
+          </div>
+          <div class="book-actions">
+            <button class="mark-read">Re-read</button>
+            <button class="delete-book">Delete</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
