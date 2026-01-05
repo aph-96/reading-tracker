@@ -7,7 +7,7 @@
   "theme_color": "#6877f4",
   "icons": [
     {
-      "src": "icon-512.png",
+      "src": "book-image.png",
       "sizes": "512x512",
       "type": "image/png"
     }
