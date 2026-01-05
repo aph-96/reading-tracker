@@ -1,0 +1,136 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background: #65d2fc;
+}
+
+h1,
+h2 {
+  font-family: "Edu VIC WA NT Beginner", serif;
+  text-align: center;
+}
+
+button,
+input {
+  border-radius: 10px;
+  padding: 10px;
+  border: none;
+  font-size: 1rem;
+}
+
+button {
+  background: #6200ea;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3700b3;
+}
+
+input {
+  background: #6200ea;
+  color: white;
+  width: 100%;
+}
+
+input::placeholder {
+  color: #eee;
+}
+
+/* Containers */
+
+.container-header,
+.container-form {
+  background: linear-gradient(
+    110.6deg,
+    rgb(184, 142, 252) 2.2%,
+    rgb(104, 119, 244) 100.2%
+  );
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px auto;
+  box-shadow: 2px 2px 6px rgb(0 0 0 / 20%);
+}
+
+/* Form */
+
+#bookForm {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+/* Backup buttons */
+
+.backup-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.import-label {
+  background: #6200ea;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* List */
+
+#bookList {
+  list-style: none;
+  padding: 0;
+}
+
+#bookList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #6200ea;
+}
+
+.book-info {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.book-count {
+  font-weight: bold;
+  color: #6200ea;
+}
+
+.book-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.mark-read,
+.delete-book {
+  padding: 6px 10px;
+  font-size: 0.85rem;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  #bookForm {
+    flex-direction: column;
+  }
+
+  .backup-actions {
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+  }
+}

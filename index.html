@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reading Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@400..700&family=Montserrat:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="container-header">
+      <h1>My Reading Tracker</h1>
+      <h2 id="totalBooks">Total Reads: 0 | New Books: 0</h2>
+    </div>
+
+    <div class="container-form">
+      <form id="bookForm">
+        <input
+          type="text"
+          id="bookInput"
+          placeholder="Enter book title"
+          autocomplete="off"
+          required
+        />
+        <button class="but-add" type="submit">Add Book</button>
+      </form>
+
+      <div class="backup-actions">
+        <button id="exportBtn">Export Data</button>
+        <label class="import-label">
+          Import Data
+          <input type="file" id="importInput" accept=".json" hidden />
+        </label>
+      </div>
+
+      <ul id="bookList"></ul>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
