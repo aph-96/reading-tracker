@@ -3,11 +3,11 @@
   "short_name": "Reading",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#6877f4",
-  "theme_color": "#6877f4",
+  "background_color": "#000000",
+  "theme_color": "#6200ea",
   "icons": [
     {
-      "src": "book-image.png",
+      "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
