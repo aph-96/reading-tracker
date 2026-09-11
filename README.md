@@ -1,22 +1,13 @@
-# Reading Tracker v3.3
+# Reading Tracker v3.4
 
-This build fixes the startup error:
+Changes:
+- This Year now sorts most-recent-first.
+- The original 2026 backup order is preserved and reversed for display, because those imported reads do not have exact finish dates.
+- Future dated reads sort by date descending.
+- Future undated rereads sort by when you add them.
+- Long library titles wrap safely on narrow phone screens.
+- The malformed Goodreads-link title for `6 Times We Almost Kissed [and One Time We Did]` is migrated into the clean book record.
+- Existing localStorage is migrated in place, so this update does not require resetting the app and should preserve ratings/notes you add.
 
-`Cannot access 'clone' before initialization`
-
-Cause: `loadData()` was called before the `clone` constant had been initialized.
-Fix: `clone()` is now a hoisted function declaration before startup runs.
-
-The app remains self-contained: CSS, JavaScript and bundled reading data are all inside `index.html`.
-
-Replace:
-- index.html
-- service-worker.js
-- manifest.json
-- icon-192.png
-- icon-512.png
-
-`reading-data.json` is included as a standalone backup.
-
-After uploading, open the hosted URL with `?v=3.3` once if needed, e.g.
-`your-site-url/?v=3.3`, then refresh.
+Replace index.html, service-worker.js and manifest.json on the hosted site.
+The icons can stay the same, but copies are included.
