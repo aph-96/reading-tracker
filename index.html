@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#17111f" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Reading Tracker v3.4</title>
+  <title>Reading Tracker v3.5</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icon-192.png" />
   <style>
@@ -53,7 +53,7 @@ input,select,textarea{width:100%;background:#0f0b15;color:var(--text);border:1px
 input:focus,select:focus,textarea:focus{border-color:var(--purple)}
 .filter-row,.two-col{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}
 .book-list{display:grid;gap:10px}
-.book-card{background:rgba(28,20,38,.95);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start;box-shadow:0 8px 24px rgba(0,0,0,.16)}
+.book-card{cursor:pointer;background:rgba(28,20,38,.95);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start;box-shadow:0 8px 24px rgba(0,0,0,.16)}
 .book-main{min-width:0;flex:1;overflow:hidden}
 .book-title{font-weight:800;line-height:1.25;display:flex;align-items:flex-start;gap:7px;min-width:0;max-width:100%;overflow-wrap:anywhere;word-break:break-word}
 .book-author{font-size:.84rem;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -128,7 +128,7 @@ window.addEventListener("unhandledrejection", function(e){
     The tracker JavaScript did not start correctly. Refresh once after uploading the full fixed package.
   </div>
   <script>
-    window.__readingTrackerBooted = false; window.__readingTrackerVersion = "3.4";
+    window.__readingTrackerBooted = false; window.__readingTrackerVersion = "3.5";
     window.addEventListener("load", function () {
       setTimeout(function () {
         if (!window.__readingTrackerBooted) {
@@ -469,7 +469,7 @@ function bookCard(b){
   const rating=b.rating ? `<span class="badge">${starText(b.rating)}</span>` : "";
   const spice=b.spice ? `<span class="badge">${spiceText(b.spice)}</span>` : "";
   const needs=!b.rating && !b.category && !b.spice;
-  return `<article class="book-card">
+  return `<article class="book-card" data-book-card="${b.id}" role="button" tabindex="0" aria-label="Open ${esc(b.title)}">
     <div class="book-main">
       <div class="book-title">${favourite?"⭐ ":""}${esc(b.title)}</div>
       ${b.author?`<div class="book-author">${esc(b.author)}</div>`:""}
@@ -568,7 +568,21 @@ function renderData(){
 }
 function renderAll(){ renderYear();renderLibrary();renderRereads();renderHistory();renderData();bindBookOpeners(); }
 function bindBookOpeners(){
-  document.querySelectorAll("[data-open-book]").forEach(btn=>btn.onclick=()=>openDetails(btn.dataset.openBook));
+  document.querySelectorAll("[data-book-card]").forEach(card=>{
+    card.onclick=(e)=>{
+      if(e.target.closest("button")) return;
+      openDetails(card.dataset.bookCard);
+    };
+    card.onkeydown=(e)=>{
+      if(e.key==="Enter" || e.key===" "){
+        e.preventDefault();
+        openDetails(card.dataset.bookCard);
+      }
+    };
+  });
+  document.querySelectorAll("[data-open-book]").forEach(btn=>{
+    btn.onclick=(e)=>{ e.stopPropagation(); openDetails(btn.dataset.openBook); };
+  });
 }
 
 function setView(name){
@@ -699,6 +713,12 @@ $("rereadForm").addEventListener("submit",e=>{
   const date=$("rereadDate").value||null;
   b.reads.push({year:date?Number(date.slice(0,4)):currentYear,date,type:"reread",source:"App",loggedAt:Date.now()});
   $("rereadDialog").close();saveData();toast("Reread added");
+});
+
+document.querySelectorAll("dialog.modal").forEach(dialog=>{
+  dialog.addEventListener("click",e=>{
+    if(e.target===dialog) dialog.close();
+  });
 });
 
 document.querySelectorAll(".tap-rating button[data-value]").forEach(btn=>{
