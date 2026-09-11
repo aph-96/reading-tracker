@@ -338,3 +338,5 @@ function toast(msg){
 }
 if("serviceWorker" in navigator) navigator.serviceWorker.register("service-worker.js").catch(console.warn);
 renderAll();
+
+window.__readingTrackerBooted = true;

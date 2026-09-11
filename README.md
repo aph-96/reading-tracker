@@ -29,3 +29,15 @@ If you already have an older version of the app installed, the new app uses a ne
 - Unknown years remain unknown rather than being guessed.
 
 `reading-data.json` is also included as a standalone backup/import file.
+
+
+## FIXED BUILD v3.1
+This build deliberately uses versioned filenames:
+- app-v3-1.js
+- data-v3-1.js
+- styles-v3-1.css
+
+This prevents an older installed service worker from serving a previous app.js file against the new page.
+
+When updating your hosted site, replace ALL existing tracker files with the contents of this folder, including service-worker.js.
+If the tracker is already installed on your phone, open the hosted website once in Chrome after uploading the fixed files, refresh it, then reopen the installed app.

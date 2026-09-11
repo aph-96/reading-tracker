@@ -9,9 +9,24 @@
   <title>Reading Tracker</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icon-192.png" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles-v3-1.css" />
 </head>
 <body>
+  <noscript><div style="padding:16px;background:#7a2434;color:white;font-family:sans-serif">JavaScript is disabled, so the tracker cannot run.</div></noscript>
+  <div id="bootError" style="display:none;position:fixed;z-index:9999;left:12px;right:12px;top:12px;padding:12px 14px;border-radius:12px;background:#7a2434;color:white;font-family:sans-serif">
+    The tracker JavaScript did not start correctly. Refresh once after uploading the full fixed package.
+  </div>
+  <script>
+    window.__readingTrackerBooted = false;
+    window.addEventListener("load", function () {
+      setTimeout(function () {
+        if (!window.__readingTrackerBooted) {
+          var el = document.getElementById("bootError");
+          if (el) el.style.display = "block";
+        }
+      }, 1200);
+    });
+  </script>
   <div class="app-shell">
     <header class="topbar">
       <div>
@@ -237,7 +252,7 @@
     </form>
   </dialog>
 
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <script src="data-v3-1.js"></script>
+  <script src="app-v3-1.js"></script>
 </body>
 </html>
