@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#17111f" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Reading Tracker v3.6</title>
+  <title>Reading Tracker v3.7</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icon-192.png" />
   <style>
@@ -128,7 +128,7 @@ window.addEventListener("unhandledrejection", function(e){
     The tracker JavaScript did not start correctly. Refresh once after uploading the full fixed package.
   </div>
   <script>
-    window.__readingTrackerBooted = false; window.__readingTrackerVersion = "3.6";
+    window.__readingTrackerBooted = false; window.__readingTrackerVersion = "3.7";
     window.addEventListener("load", function () {
       setTimeout(function () {
         if (!window.__readingTrackerBooted) {
@@ -375,6 +375,8 @@ const ORIGINAL_2026_SEQUENCE = ["Breakup Buddies", "Can We Skip to the good part
 function normTitle(s){ return String(s||"").toLowerCase().replace(/[^a-z0-9]+/g,""); }
 const ORIGINAL_2026_ORDER = new Map(ORIGINAL_2026_SEQUENCE.map((title,index)=>[normTitle(title),index+1]));
 function clone(x){ return JSON.parse(JSON.stringify(x)); }
+const PURCHASED_READS_V36 = [{"title": "Hurt Me Not", "author": "Eden Emory", "year": 2025}, {"title": "A Crimson Covenant", "author": "Aimee Donnellan", "year": 2025}, {"title": "The Book of Blood and Roses", "author": "Annie Summerlee", "year": 2025}, {"title": "Taken to the Demon Court", "author": "Elle Mae", "year": 2025}, {"title": "Love Me Not", "author": "Eden Emory", "year": 2025}, {"title": "Taken to the Deadlands", "author": "Elle Mae", "year": 2025}, {"title": "Taken to the Shadow Realm", "author": "Elle Mae", "year": 2025}, {"title": "A Royal's Soul", "author": "J.K. Jeffrey", "year": 2025}, {"title": "The Princess's Pet", "author": "J.K. Jeffrey", "year": 2025}, {"title": "The Queen's Heart", "author": "J.K. Jeffrey", "year": 2025}, {"title": "From Bad to Cursed", "author": "Lana Harper", "year": 2024}, {"title": "Payback's a Witch", "author": "Lana Harper", "year": 2024}, {"title": "The Price of Silence: Winterfell Academy Book 3", "author": "Elle Mae", "year": 2024}, {"title": "The Price of Silence: Winterfell Academy Book 2", "author": "Elle Mae", "year": 2024}, {"title": "The Price of Silence: Winterfell Academy Book 5", "author": "Elle Mae", "year": 2024}, {"title": "The Price of Silence: Winterfell Academy Book 4", "author": "Elle Mae", "year": 2024}, {"title": "The Price of Silence: Winterfell Academy Book 1", "author": "Elle Mae", "year": 2024}];
+
 const $ = (id) => document.getElementById(id);
 let state = loadData();
 
@@ -567,8 +569,6 @@ function renderData(){
     <strong>${unknownReads()}</strong> historical reads with unknown year<br>
     Data format version ${state.version}`;
 }
-
-const PURCHASED_READS_V36 = [{"title": "Hurt Me Not", "author": "Eden Emory", "year": 2025}, {"title": "A Crimson Covenant", "author": "Aimee Donnellan", "year": 2025}, {"title": "The Book of Blood and Roses", "author": "Annie Summerlee", "year": 2025}, {"title": "Taken to the Demon Court", "author": "Elle Mae", "year": 2025}, {"title": "Love Me Not", "author": "Eden Emory", "year": 2025}, {"title": "Taken to the Deadlands", "author": "Elle Mae", "year": 2025}, {"title": "Taken to the Shadow Realm", "author": "Elle Mae", "year": 2025}, {"title": "A Royal's Soul", "author": "J.K. Jeffrey", "year": 2025}, {"title": "The Princess's Pet", "author": "J.K. Jeffrey", "year": 2025}, {"title": "The Queen's Heart", "author": "J.K. Jeffrey", "year": 2025}, {"title": "From Bad to Cursed", "author": "Lana Harper", "year": 2024}, {"title": "Payback's a Witch", "author": "Lana Harper", "year": 2024}, {"title": "The Price of Silence: Winterfell Academy Book 3", "author": "Elle Mae", "year": 2024}, {"title": "The Price of Silence: Winterfell Academy Book 2", "author": "Elle Mae", "year": 2024}, {"title": "The Price of Silence: Winterfell Academy Book 5", "author": "Elle Mae", "year": 2024}, {"title": "The Price of Silence: Winterfell Academy Book 4", "author": "Elle Mae", "year": 2024}, {"title": "The Price of Silence: Winterfell Academy Book 1", "author": "Elle Mae", "year": 2024}];
 
 function migratePurchasedReads(d){
   const key=s=>String(s||"").toLowerCase().replace(/[^a-z0-9]+/g,"");
