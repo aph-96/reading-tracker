@@ -1,49 +1,243 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reading Tracker</title>
-    <link rel="stylesheet" href="style.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#17111f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Reading Tracker</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">MY LIBRARY</p>
+        <h1>Reading Tracker</h1>
+      </div>
+      <button class="icon-btn" id="quickAddBtn" aria-label="Add book">＋</button>
+    </header>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@400..700&family=Montserrat:wght@300..700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="manifest" href="manifest-v2.json" />
-  </head>
+    <main id="app">
+      <section class="view active" data-view="year">
+        <div id="yearHero"></div>
+        <div class="section-head">
+          <div>
+            <h2 id="yearTitle">This Year</h2>
+            <p>Books counted in your current yearly total.</p>
+          </div>
+          <button class="secondary-btn compact" id="editGoalBtn">Edit goal</button>
+        </div>
+        <div id="yearBooks" class="book-list"></div>
+      </section>
 
-  <body>
-    <div class="container-header">
-      <h1>My Reading Tracker</h1>
-      <h2 id="totalBooks">Total Reads: 0 | New Books: 0</h2>
-    </div>
+      <section class="view" data-view="library">
+        <div class="section-head stack-mobile">
+          <div>
+            <h2>Library</h2>
+            <p>Every book you've logged, including historical reads.</p>
+          </div>
+          <div class="header-actions">
+            <button class="primary-btn" id="addBookBtn">+ Add Book</button>
+            <button class="secondary-btn" id="addHistoricalBtn">+ Historical</button>
+          </div>
+        </div>
 
-    <div class="container-form">
-      <form id="bookForm">
-        <input
-          type="text"
-          id="bookInput"
-          placeholder="Enter book title"
-          autocomplete="off"
-          required
-        />
-        <button class="but-add" type="submit">Add Book</button>
-      </form>
+        <div class="controls-card">
+          <input id="searchInput" type="search" placeholder="Search title or author…" />
+          <div class="filter-row">
+            <select id="libraryFilter">
+              <option value="all">All books</option>
+              <option value="needs-details">Needs details</option>
+              <option value="favourites">Favourites</option>
+              <option value="reread">Read more than once</option>
+            </select>
+            <select id="librarySort">
+              <option value="title">A–Z</option>
+              <option value="rating">Highest rating</option>
+              <option value="reads">Most read</option>
+              <option value="recent">Most recent known year</option>
+            </select>
+          </div>
+        </div>
+        <div id="libraryStats" class="mini-stats"></div>
+        <div id="libraryBooks" class="book-list"></div>
+      </section>
 
-      <div class="backup-actions">
-        <button id="exportBtn">Export Data</button>
-        <label class="import-label">
-          Import Data
-          <input type="file" id="importInput" accept=".json" hidden />
+      <section class="view" data-view="rereads">
+        <div class="section-head">
+          <div>
+            <h2>Reread Picks</h2>
+            <p>Favourites and highly rated books rise to the top.</p>
+          </div>
+        </div>
+        <div class="controls-card">
+          <select id="rereadFilter">
+            <option value="all">All candidates</option>
+            <option value="favourites">Favourites only</option>
+            <option value="rated">Rated 4★+</option>
+            <option value="multi">Already reread</option>
+          </select>
+        </div>
+        <div id="rereadBooks" class="book-list"></div>
+      </section>
+
+      <section class="view" data-view="history">
+        <div class="section-head">
+          <div>
+            <h2>History</h2>
+            <p>Year totals use only years we actually know.</p>
+          </div>
+        </div>
+        <div id="historyYears" class="history-grid"></div>
+        <div class="history-note">
+          Unknown-year historical reads still count toward lifetime totals, but are not forced into a made-up year.
+        </div>
+      </section>
+
+      <section class="view" data-view="data">
+        <div class="section-head">
+          <div>
+            <h2>Data & Backup</h2>
+            <p>Keep a copy somewhere safe. Import replaces the app's current data.</p>
+          </div>
+        </div>
+        <div class="data-card">
+          <button class="primary-btn wide" id="exportBtn">Export Backup</button>
+          <label class="secondary-btn wide file-btn">
+            Import Backup
+            <input id="importInput" type="file" accept=".json,application/json" hidden />
+          </label>
+          <button class="danger-btn wide" id="resetBtn">Reset to Bundled Data</button>
+        </div>
+        <div id="dataSummary" class="data-summary"></div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button data-nav="year" class="active"><span>📖</span><small>This Year</small></button>
+      <button data-nav="library"><span>📚</span><small>Library</small></button>
+      <button data-nav="rereads"><span>⭐</span><small>Rereads</small></button>
+      <button data-nav="history"><span>📊</span><small>History</small></button>
+      <button data-nav="data"><span>⚙️</span><small>Data</small></button>
+    </nav>
+  </div>
+
+  <dialog id="bookDialog" class="modal">
+    <form method="dialog" id="bookForm">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow" id="bookDialogEyebrow">BOOK</p>
+          <h2 id="bookDialogTitle">Add Book</h2>
+        </div>
+        <button type="button" class="icon-btn small" data-close="bookDialog">×</button>
+      </div>
+
+      <input type="hidden" id="bookId" />
+      <input type="hidden" id="bookMode" value="current" />
+
+      <label>Title
+        <input id="bookTitle" required autocomplete="off" />
+      </label>
+      <label>Author <span class="optional">(optional)</span>
+        <input id="bookAuthor" autocomplete="off" />
+      </label>
+
+      <div id="currentReadFields">
+        <label>Date read
+          <input id="bookDate" type="date" />
         </label>
       </div>
 
-      <ul id="bookList"></ul>
-    </div>
+      <div id="historicalReadFields" hidden>
+        <div class="two-col">
+          <label>Year <span class="optional">(optional)</span>
+            <input id="historicalYear" type="number" min="1900" max="2100" inputmode="numeric" placeholder="e.g. 2023" />
+          </label>
+          <label>Month <span class="optional">(optional)</span>
+            <select id="historicalMonth">
+              <option value="">Unknown</option>
+              <option value="01">January</option><option value="02">February</option>
+              <option value="03">March</option><option value="04">April</option>
+              <option value="05">May</option><option value="06">June</option>
+              <option value="07">July</option><option value="08">August</option>
+              <option value="09">September</option><option value="10">October</option>
+              <option value="11">November</option><option value="12">December</option>
+            </select>
+          </label>
+        </div>
+      </div>
 
-    <script src="script.js"></script>
-  </body>
+      <div class="rating-block">
+        <span class="field-label">Your rating <span class="optional">(optional)</span></span>
+        <div class="tap-rating" id="starRating" data-value="">
+          <button type="button" data-value="1">★</button><button type="button" data-value="2">★</button>
+          <button type="button" data-value="3">★</button><button type="button" data-value="4">★</button>
+          <button type="button" data-value="5">★</button>
+          <button type="button" class="clear-rating" data-clear="stars">Clear</button>
+        </div>
+      </div>
+
+      <div class="rating-block">
+        <span class="field-label">Spice <span class="optional">(optional)</span></span>
+        <div class="tap-rating chilli" id="spiceRating" data-value="">
+          <button type="button" data-value="1">🌶️</button><button type="button" data-value="2">🌶️</button>
+          <button type="button" data-value="3">🌶️</button><button type="button" data-value="4">🌶️</button>
+          <button type="button" data-value="5">🌶️</button>
+          <button type="button" class="clear-rating" data-clear="spice">Clear</button>
+        </div>
+      </div>
+
+      <label>Verdict <span class="optional">(optional)</span>
+        <select id="bookCategory">
+          <option value="">Not set</option>
+          <option value="favourite">💜 Favourite / would reread</option>
+          <option value="good">👍 Good</option>
+          <option value="fine">😐 Fine / pass-the-time</option>
+          <option value="disliked">👎 Didn't like</option>
+        </select>
+      </label>
+
+      <label>Notes <span class="optional">(optional)</span>
+        <textarea id="bookNotes" rows="3" placeholder="Anything you want to remember…"></textarea>
+      </label>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-btn" data-close="bookDialog">Cancel</button>
+        <button type="submit" class="primary-btn">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="detailsDialog" class="modal">
+    <div id="detailsContent"></div>
+  </dialog>
+
+  <dialog id="rereadDialog" class="modal">
+    <form method="dialog" id="rereadForm">
+      <div class="modal-head">
+        <div>
+          <p class="eyebrow">REREAD</p>
+          <h2 id="rereadBookTitle">Mark as reread</h2>
+        </div>
+        <button type="button" class="icon-btn small" data-close="rereadDialog">×</button>
+      </div>
+      <input type="hidden" id="rereadBookId" />
+      <label>Date finished <span class="optional">(optional)</span>
+        <input id="rereadDate" type="date" />
+      </label>
+      <p class="helper">Leave blank if you only want to record that you reread it but don't care about the exact date.</p>
+      <div class="modal-actions">
+        <button type="button" class="secondary-btn" data-close="rereadDialog">Cancel</button>
+        <button type="submit" class="primary-btn">Add reread</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
 </html>
