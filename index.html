@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#17111f" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Reading Tracker v3.2</title>
+  <title>Reading Tracker v3.3</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icon-192.png" />
   <style>
@@ -128,7 +128,7 @@ window.addEventListener("unhandledrejection", function(e){
     The tracker JavaScript did not start correctly. Refresh once after uploading the full fixed package.
   </div>
   <script>
-    window.__readingTrackerBooted = false;
+    window.__readingTrackerBooted = false; window.__readingTrackerVersion = "3.3";
     window.addEventListener("load", function () {
       setTimeout(function () {
         if (!window.__readingTrackerBooted) {
@@ -371,10 +371,9 @@ window.INITIAL_READING_DATA = {"version": 3, "generatedAt": "2026-09-11T00:00:00
 
 const STORAGE_KEY = "readingTrackerDataV3";
 const currentYear = new Date().getFullYear();
-let state = loadData();
-
+function clone(x){ return JSON.parse(JSON.stringify(x)); }
 const $ = (id) => document.getElementById(id);
-const clone = (x) => JSON.parse(JSON.stringify(x));
+let state = loadData();
 
 function loadData(){
   try{
